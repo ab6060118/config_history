@@ -12,10 +12,11 @@ class UserHooks {
     }
 
     public function register() {
-        $callback = function($node) {
+        $callback = function($user) {
             return NoteService::create('123', '123', 'user');
         };
-        $userManager->listen('\OC\Files', 'postCreate', $callback);
+        // $userManager->listen('\OC\Files', 'postCreate', $callback);
+        $this->userManger->listen('\OC\User', 'preDelete', $callback);
     }
 
 }
