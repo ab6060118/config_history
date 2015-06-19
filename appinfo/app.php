@@ -11,15 +11,17 @@
 
 namespace OCA\OwnNotes\AppInfo;
 
-// use OCP\AppFramework\App;
+use OCP\AppFramework\App;
 
-//$app = new App('ownnotes');
+$app = new App('ownnotes');
+// $app->getContainer()->query('UserHooks')->register();
 
-//$app->getContainer()->query('UserHooks')->register();
-
-$app = new Application();
+// $app = new Application();
 $container = $app->getContainer();
 
+\OCA\OwnNotes\OwnNotes::registerHooks();
+
+/*
 $navigationEntry = function () use ($container) {
 	$urlGenerator = $container->query('OCP\IURLGenerator');
 	$l10n = $container->query('OCP\IL10N');
@@ -31,11 +33,8 @@ $navigationEntry = function () use ($container) {
         'name' => $l10n->t('Own Notes'),
     ];
 };
+ */
 
-$container->getServer()->getNavigationManager()->add($navigationEntry);
-
-// $container->query('UserHooks')->register();
-/*
 $container->query('OCP\INavigationManager')->add(function () use ($container) {
 	$urlGenerator = $container->query('OCP\IURLGenerator');
 	$l10n = $container->query('OCP\IL10N');
@@ -59,4 +58,3 @@ $container->query('OCP\INavigationManager')->add(function () use ($container) {
 		'name' => $l10n->t('Own Notes'),
 	];
 });
- */
