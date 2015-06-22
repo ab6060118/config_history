@@ -19,21 +19,7 @@ $app = new App('ownnotes');
 // $app = new Application();
 $container = $app->getContainer();
 
-\OCA\OwnNotes\OwnNotes::registerHooks();
-
-/*
-$navigationEntry = function () use ($container) {
-	$urlGenerator = $container->query('OCP\IURLGenerator');
-	$l10n = $container->query('OCP\IL10N');
-    return [
-        'id' => 'ownnotes',
-        'order' => 10,
-        'href' => $urlGenerator->linkToRoute('ownnotes.page.index'),
-        'icon' => $urlGenerator->imagePath('ownnotes', 'app.svg'),
-        'name' => $l10n->t('Own Notes'),
-    ];
-};
- */
+\OCA\OwnNotes\Hooks::registerHooks();
 
 $container->query('OCP\INavigationManager')->add(function () use ($container) {
 	$urlGenerator = $container->query('OCP\IURLGenerator');

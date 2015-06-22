@@ -1,17 +1,17 @@
 <?php
 namespace OCA\OwnNotes;
 
-use OCA\OwnNotes\Service\NoteService;
 use OCP\DB;
+use OCP\Util;
 
-class OwnNotes {
+class Hooks {
     public static function registerHooks() {
-        \OCP\Util::connectHook('OC_Filesystem', 'post_create', 'OCA\OwnNotes\OwnNotes', 'createFile');
+        Util::connectHook('OC_Filesystem', 'post_create', 'OCA\OwnNotes\Hooks', 'createFile');
     }
 
     public static function createFile () {
         $query = DB::prepare("INSERT INTO `*PREFIX*ownnotes_notes` (`title`,`user_id`,`content`) VALUES (?,?,?)");
-        $query->execute(array('123','test','test'));
+        $query->execute(array('123','user','test'));
         // return \OCA\OwnNotes\Service\NoteService::create('123', '123', 'user');
     }
 }
