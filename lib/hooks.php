@@ -7,6 +7,7 @@ use OCP\Util;
 class Hooks {
     public static function registerHooks() {
         Util::connectHook('OC_Filesystem', 'post_create', 'OCA\OwnNotes\Hooks', 'createFile');
+        Util::connectHook('OC_User', 'post_createUser', 'OCA\OwnNotes\UserHooks', 'userCreate');
     }
 
     public static function createFile () {
