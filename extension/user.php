@@ -4,4 +4,5 @@ namespace OCA\OwnNotes\Extension;
 
 class User {
     const TYPE_USER_CREATE = 'user_created';
+    const ADMIN_OPERATION = 'admin_operation';
 }

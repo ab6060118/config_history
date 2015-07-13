@@ -14,9 +14,25 @@ class MyAppConfig extends AppConfig{
     }
 
     public function setValue($app, $key, $value) {
-        $type = User::TYPE_USER_CREATE;
-        $affectuser= \OCP\User::getUser();
-        Data::send($app, $key, array('test' => 1234), $value, '', 'None', 'None', $affectuser, $type);
+        $type = User::ADMIN_OPERATION;
+
+		if (!$this->hasKey($app, $key)) {
+			$inserted = (bool) $this->conn->insertIfNotExist('*PREFIX*appconfig', [
+				'appid' => $app,
+				'configkey' => $key,
+				'configvalue' => $value,
+			], [
+				'appid',
+				'configkey',
+			]);
+		}
+
+		if (!$inserted) 
+            $subject = 'update_value';
+        else 
+            $subject = 'create_value';
+
+        Data::send($app, $subject, array($key=>$value), '', '', '', '', '', $type);
         parent::setValue($app, $key, $value);
     }
 
