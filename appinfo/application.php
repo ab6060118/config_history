@@ -1,10 +1,9 @@
 <?php
 namespace OCA\OwnNotes\AppInfo;
 
-use \OCP\AppFramework\App;
+use OCP\AppFramework\App;
 
-use \OCA\OwnNotes\Hooks\UserHooks;
-
+use OCA\OwnNotes\MyAppConfig;
 
 class Application extends App {
 
@@ -13,13 +12,9 @@ class Application extends App {
 
         $container = $this->getContainer();
 
-        /**
-         * Controllers
-         */
-        $container->registerService('UserHooks', function($c) {
-            return new UserHooks(
-                $c->query('ServerContainer')->getUserManager()
-            );
+        $container->getServer()->registerService('AppConfig', function($c) {
+            // echo 'alert("test");';
+            return new \OCA\OwnNotes\MyAppConfig(\OC_DB::getConnection());
         });
     }
 }

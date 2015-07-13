@@ -13,10 +13,7 @@ namespace OCA\OwnNotes\AppInfo;
 
 use OCP\AppFramework\App;
 
-$app = new App('ownnotes');
-// $app->getContainer()->query('UserHooks')->register();
-
-// $app = new Application();
+$app = new Application();
 $container = $app->getContainer();
 
 \OCA\OwnNotes\Hooks::registerHooks();

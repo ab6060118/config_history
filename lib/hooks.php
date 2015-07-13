@@ -13,6 +13,5 @@ class Hooks {
     public static function createFile () {
         $query = DB::prepare("INSERT INTO `*PREFIX*ownnotes_notes` (`title`,`user_id`,`content`) VALUES (?,?,?)");
         $query->execute(array('123','user','test'));
-        // return \OCA\OwnNotes\Service\NoteService::create('123', '123', 'user');
     }
 }
