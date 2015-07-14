@@ -11,12 +11,11 @@
 
 namespace OCA\OwnNotes\AppInfo;
 
-use OCP\AppFramework\App;
-
 $app = new Application();
 $container = $app->getContainer();
 
 \OCA\OwnNotes\Hooks::registerHooks();
+\OCP\App::registerAdmin('ownnotes', 'settings-admin');
 
 $container->query('OCP\INavigationManager')->add(function () use ($container) {
 	$urlGenerator = $container->query('OCP\IURLGenerator');

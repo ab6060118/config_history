@@ -15,6 +15,7 @@ class MyAppConfig extends AppConfig{
 
     public function setValue($app, $key, $value) {
         $type = User::ADMIN_OPERATION;
+        $inserted = false; 
 
 		if (!$this->hasKey($app, $key)) {
 			$inserted = (bool) $this->conn->insertIfNotExist('*PREFIX*appconfig', [

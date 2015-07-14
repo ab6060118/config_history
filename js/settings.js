@@ -1,0 +1,4 @@
+OCAdminActivity = {
+};
+$(document).ready(function() {
+});

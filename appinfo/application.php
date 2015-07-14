@@ -13,7 +13,6 @@ class Application extends App {
         $container = $this->getContainer();
 
         $container->getServer()->registerService('AppConfig', function($c) {
-            // echo 'alert("test");';
             return new \OCA\OwnNotes\MyAppConfig(\OC_DB::getConnection());
         });
     }

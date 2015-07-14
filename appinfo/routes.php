@@ -6,6 +6,7 @@ return [
         ['name' => 'note#show', 'url' => '/notes/{id}', 'verb' => 'GET'],
         ['name' => 'note#create', 'url' => '/notes', 'verb' => 'POST'],
         ['name' => 'note#update', 'url' => '/notes/{id}', 'verb' => 'PUT'],
-        ['name' => 'note#destroy', 'url' => '/notes/{id}', 'verb' => 'DELETE']
+        ['name' => 'note#destroy', 'url' => '/notes/{id}', 'verb' => 'DELETE'],
+        ['name' => 'adminactivities#entries', 'url' => '/entries', 'verb' => 'GET']
     ]
 ];
