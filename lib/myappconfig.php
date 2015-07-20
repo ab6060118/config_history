@@ -33,7 +33,7 @@ class MyAppConfig extends AppConfig{
         else 
             $subject = 'create_value';
 
-        Data::send($app, $subject, array($key=>$value), '', '', '', '', '', $type);
+        Data::send($app, $subject, array($key, $value), '', '', '', '', '', $type);
         parent::setValue($app, $key, $value);
     }
 

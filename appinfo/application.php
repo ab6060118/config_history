@@ -15,5 +15,12 @@ class Application extends App {
         $container->getServer()->registerService('AppConfig', function($c) {
             return new \OCA\OwnNotes\MyAppConfig(\OC_DB::getConnection());
         });
+
+        $container->getServer()->getActivityManager()->registerExtension(function() {
+            return new \OCA\OwnNotes\Activity(
+                \OC::$server->query('L10NFactory'),
+                \OC::$server->getURLGenerator()
+            ); 
+        });
     }
 }
