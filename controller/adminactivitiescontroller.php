@@ -24,7 +24,7 @@ class AdminActivitiesController extends Controller {
         $this->data = $data;
 	}
 
-    public function getEntries($type, $count, $start) {
-        return DataResponse($this->data->getEntries());
+    public function getEntries($filter, $count, $start) {
+        return DataResponse($this->data->getEntries($filter, $count, $start));
     }
 }
