@@ -12,6 +12,5 @@
 namespace OCA\OwnNotes\AppInfo;
 
 $app = new Application();
-$container = $app->getContainer();
 
 \OCP\App::registerAdmin('ownnotes', 'settings-admin');

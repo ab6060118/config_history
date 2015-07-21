@@ -164,16 +164,6 @@ class Activity implements IExtension {
 	 * @return array|false
 	 */
 	public function getNavigation() {
-		return [
-            'app' => [],
-			'top' => [
-				self::FILTER_ADMIN_ACTIVITIES => [
-					'id' => self::FILTER_ADMIN_ACTIVITIES,
-					'name' => (string) $this->l->t('Admin'),
-					'url' => $this->URLGenerator->linkToRoute('activity.Activities.showList', ['filter' => self::FILTER_ADMIN_ACTIVITIES]),
-				],
-			]
-		];
         return false;
 	}
 
