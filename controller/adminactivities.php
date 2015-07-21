@@ -13,6 +13,7 @@ namespace OCA\OwnNotes\Controller;
 
 use OCP\IRequest;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\DataResponse;
 
 use OCA\Activity\Data;
 use OCA\Activity\GroupHelper;
@@ -39,7 +40,6 @@ class AdminActivities extends Controller {
         $pageOffset = $page - 1;
         $filter = $this->data->validateFilter($filter);
 
-        // return DataResponse($this->data->read($this->helper, $this->setting, $pageOffset * self::DEFAULT_PAGE_SIZE, self::DEFAULT_PAGE_SIZE, $filter));
-        return 123;
+        return new DataResponse($this->data->read($this->helper, $this->setting, $pageOffset * self::DEFAULT_PAGE_SIZE, self::DEFAULT_PAGE_SIZE, $filter));
     }
 }

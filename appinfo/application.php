@@ -40,7 +40,7 @@ class Application extends App {
 		});
 
         $container->registerService('ActivityData', function($c) {
-            new Data($c->query('AdminActivityManager'));
+            return new Data($c->query('AdminActivityManager'));
         });
 
 		$container->registerService('DataHelper', function($c) {
@@ -56,13 +56,13 @@ class Application extends App {
 					$c->query('AdminActivityL10N'),
 					$c->query('CurrentUID')
 				),
-				$c->query('ActivityL10N')
+				$c->query('AdminActivityL10N')
 			);
 		});
 
 		$container->registerService('GroupHelper', function($c) {
 			return new GroupHelper(
-				$c->getServer()->getActivityManager(),
+                $c->query('AdminActivityManager'),
 				$c->query('DataHelper'),
 				true
 			);
@@ -71,7 +71,7 @@ class Application extends App {
         $container->registerService('UserSettings', function($c) {
             $serverContainer = $c->getServer();
 			return new UserSettings(
-				$serverContainer->getActivityManager(),
+				$c->query('AdminActivityManager'),
 				$serverContainer->getConfig(),
 				$c->query('ActivityData')
 			);
@@ -86,7 +86,7 @@ class Application extends App {
 
 
         $container->registerService('AdminActivitiesController', function($c) {
-            new AdminActivities(
+            return new AdminActivities(
 				$c->query('AppName'),
 				$c->query('Request'),
 				$c->query('ActivityData'),
@@ -97,14 +97,11 @@ class Application extends App {
         });
 
 
-        /*
         $container->query('AdminActivityManager')->registerExtension(function() {
-            $serverContainer = $c->getServer();
             return new Activity(
-                $serverContainer->query('L10NFactory'),
-                $serverContainer->getURLGenerator()
+                \OC::$server->query('L10NFactory'),
+                \OC::$server->getURLGenerator()
             ); 
         });
-         */
     }
 }
