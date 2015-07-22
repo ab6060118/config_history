@@ -107,13 +107,17 @@ class Activity implements IExtension {
 	 * @return string|false
 	 */
 	public function translate($app, $text, $params, $stripPath, $highlightParams, $languageCode) {
+        /*
 		if ($app !== ADMIN_ACTIVITY_APP) {
 			return false;
 		}
+         */
 
 		switch ($text) {
-			case TYPE_ADMIN_ACTIVITIES:
-				return (string) $this->l->t('You created %1$s', $params);
+            case self::SUBJECT_CREATE_VALUE:
+				return (string) $this->l->t('%1$s create the value of %2$s to %3$s.', $params);
+            case self::SUBJECT_UPDATE_VALUE:
+				return (string) $this->l->t('%1$s update the value of %2$s to %3$s.', $params);
 			default:
 				return false;
 		}
@@ -131,7 +135,7 @@ class Activity implements IExtension {
 	 * @return array|false
 	 */
 	function getSpecialParameterList($app, $text) {
-		return false;
+        return false;
 	}
 
 	/**

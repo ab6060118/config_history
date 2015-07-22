@@ -6,7 +6,8 @@ use OC\AppConfig;
 use OC\DB\Connection;
 
 use OCA\Activity\Data;
-use OCA\OwnNotes\Extension\User;
+
+use OCP\User;
 
 class MyAppConfig extends AppConfig{
     public function __construct(Connection $conn) {
@@ -14,7 +15,8 @@ class MyAppConfig extends AppConfig{
     }
 
     public function setValue($app, $key, $value) {
-        $type = User::ADMIN_OPERATION;
+        $type = Extension\User::ADMIN_OPERATION;
+        $user = User::getUser();
         $inserted = false; 
 
 		if (!$this->hasKey($app, $key)) {
@@ -33,7 +35,7 @@ class MyAppConfig extends AppConfig{
         else 
             $subject = 'create_value';
 
-        Data::send($app, $subject, array($key, $value), '', '', '', '', '', $type);
+        Data::send($app, $subject, array($user, $key, $value), '', '', '', '', '', $type);
         parent::setValue($app, $key, $value);
     }
 
