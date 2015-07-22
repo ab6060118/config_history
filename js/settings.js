@@ -35,9 +35,10 @@ $(function() {
         appendContent: function(activities) {
             // console.dir(activity);
             $.each(activities, function(key, activity) {
+                var date = new Date(activity.timestamp*1000);
                 var row = $('<tr>');
-                row.append($('<td>').text(activity.subjectformatted.trimmed));
-                row.append($('<td>').text(activity.timestamp));
+                row.append($('<td>').html(activity.subjectformatted.markup.trimmed));
+                row.append($('<td>').text(date.toLocaleDateString()+' '+date.toString().match(/\d\d:\d\d:\d\d/)));
                 OCAdminActivity.Operation.content.append(row);
                 console.dir(activity.subjectformatted);
             });
