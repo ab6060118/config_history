@@ -13,7 +13,7 @@ use OCA\Activity\ParameterHelper;
 use OCA\OwnNotes\Activity;
 use OCA\OwnNotes\MyAppConfig;
 use OCA\OwnNotes\AdminActivityManager;
-use OCA\OwnNotes\Controller\AdminActivities;
+use OCA\OwnNotes\Controller\ConfigurationHistory;
 
 class Application extends App {
 
@@ -85,8 +85,8 @@ class Application extends App {
 		});
 
 
-        $container->registerService('AdminActivitiesController', function($c) {
-            return new AdminActivities(
+        $container->registerService('ConfigurationHistoryController', function($c) {
+            return new ConfigurationHistory(
 				$c->query('AppName'),
 				$c->query('Request'),
 				$c->query('ActivityData'),
@@ -95,7 +95,6 @@ class Application extends App {
 				$c->query('CurrentUID')
             );
         });
-
 
         $container->query('AdminActivityManager')->registerExtension(function() {
             return new Activity(

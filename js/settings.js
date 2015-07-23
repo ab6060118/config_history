@@ -1,40 +1,43 @@
-$(function() {
-    var OCAdminActivity = {};
+$(document).ready(function() {
+    var OCConfigurationHistory = {};
 
-    OCAdminActivity.init = function() {
-        $('#lessadminacvitity').hide();
-        OCAdminActivity.Operation.getActivities();
+    OCConfigurationHistory.init = function() {
+        $('#lesshistory').hide();
+        $('#nomoremsg').hide();
+        OCConfigurationHistory.Operation.getActivities();
     };
 
-    OCAdminActivity.Filter = {
-        filter: 'admin_activity',
+    OCConfigurationHistory.Filter = {
+        filter: 'configuration_history',
         currentPage: 0,
+        pageSize: 5,
     };
 
-    OCAdminActivity.Operation = {
-        content: $('#activity_list'),
+    OCConfigurationHistory.Operation = {
+        content: $('#configuration_history'),
 
         getActivities: function() {
-            OCAdminActivity.Filter.currentPage++;
-            console.dir(OCAdminActivity.Filter.currentPage);
+            OCConfigurationHistory.Filter.currentPage++;
 
             $.ajax({
                 url:OC.generateUrl('/apps/ownnotes/fetch'),
                 method:'GET',
                 data: {
-                    filter: OCAdminActivity.Filter.filter,
-                    page: OCAdminActivity.Filter.currentPage,
+                    filter: OCConfigurationHistory.Filter.filter,
+                    page: OCConfigurationHistory.Filter.currentPage,
                 },
             })
             .done(function(data) {
-                if(data.length) {
-                    OCAdminActivity.Operation.appendContent(data);
-                } else {
+                if(data.length < OCConfigurationHistory.Filter.pageSize) {
+                    $('#morehistory').hide();
+                    $('#nomoremsg').show();
                 }
+
+                OCConfigurationHistory.Operation.appendContent(data);
             });
 
-            if(OCAdminActivity.Filter.currentPage > 1) {
-                $('#lessadminacvitity').show();
+            if(OCConfigurationHistory.Filter.currentPage > 1) {
+                $('#lesshistory').show();
             }
         },
 
@@ -45,35 +48,37 @@ $(function() {
                 var row = $('<tr>');
                 row.append($('<td>').html(activity.subjectformatted.markup.trimmed));
                 row.append($('<td>').text(date.toLocaleDateString()+' '+date.toString().match(/\d\d:\d\d:\d\d/)));
-                OCAdminActivity.Operation.content.append(row);
+                OCConfigurationHistory.Operation.content.append(row);
             });
         },
 
         getMore: function() {
-            OCAdminActivity.Operation.getActivities()
+            OCConfigurationHistory.Operation.getActivities()
         },
 
         showLess: function() {
-            OCAdminActivity.Filter.currentPage--;
-            OCAdminActivity.Operation.content.find('tr').slice(5*OCAdminActivity.Filter.currentPage).remove();
-            if(OCAdminActivity.Filter.currentPage == 1) {
-                $('#lessadminacvitity').hide();
+            OCConfigurationHistory.Filter.currentPage--;
+            OCConfigurationHistory.Operation.content.find('tr').slice(OCConfigurationHistory.Filter.pageSize * OCConfigurationHistory.Filter.currentPage).remove();
+            if(OCConfigurationHistory.Filter.currentPage == 1) {
+                $('#lesshistory').hide();
             }
+
+            $('#morehistory').show();
+            $('#nomoremsg').hide();
         },
     };
 
-    OCAdminActivity.View = {
+    OCConfigurationHistory.View = {
     };
 
 
-    $(document).ready(function() {
-        OCAdminActivity.init();
-        $('#moreadminacvitity').on('click', function() {
-            OCAdminActivity.Operation.getMore();
-        });
-        $('#lessadminacvitity').on('click', function() {
-            OCAdminActivity.Operation.showLess();
-        });
+    OCConfigurationHistory.init();
+
+    $('#morehistory').on('click', function() {
+        OCConfigurationHistory.Operation.getMore();
+    });
+
+    $('#lesshistory').on('click', function() {
+        OCConfigurationHistory.Operation.showLess();
     });
 });
-

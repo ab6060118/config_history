@@ -29,7 +29,7 @@ use OCP\IURLGenerator;
 class Activity implements IExtension {
 	const ADMIN_ACTIVITY_APP = 'ownnotes';
 
-    const FILTER_ADMIN_ACTIVITIES = 'admin_activity';
+    const FILTER_ADMIN_ACTIVITIES = 'configuration_history';
 
     const TYPE_ADMIN_ACTIVITIES = 'admin_operation';
 
@@ -107,11 +107,7 @@ class Activity implements IExtension {
 	 * @return string|false
 	 */
 	public function translate($app, $text, $params, $stripPath, $highlightParams, $languageCode) {
-        /*
-		if ($app !== ADMIN_ACTIVITY_APP) {
-			return false;
-		}
-         */
+        $params[1] = (string) $this->l->t($params[1]);
 
 		switch ($text) {
             case self::SUBJECT_CREATE_VALUE:

@@ -19,7 +19,7 @@ use OCA\Activity\Data;
 use OCA\Activity\GroupHelper;
 use OCA\Activity\UserSettings;
 
-class AdminActivities extends Controller {
+class ConfigurationHistory extends Controller {
 
     const DEFAULT_PAGE_SIZE = 5;
 
