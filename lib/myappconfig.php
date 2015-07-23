@@ -10,6 +10,9 @@ use OCA\Activity\Data;
 use OCP\User;
 
 class MyAppConfig extends AppConfig{
+
+    private $exceptionKey = ['lastcron', 'lastjob', 'lastupdateResult', 'lastupdatedat'];
+
     public function __construct(Connection $conn) {
         parent::__construct($conn);
     }
@@ -35,7 +38,9 @@ class MyAppConfig extends AppConfig{
         else 
             $subject = 'create_value';
 
-        Data::send($app, $subject, array($user, $key, $value), '', '', '', '', '', $type);
+        if(!in_array($key, $this->exceptionKey))
+            Data::send($app, $subject, array($user, $key, $value), '', '', '', '', '', $type);
+
         parent::setValue($app, $key, $value);
     }
 

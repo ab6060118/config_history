@@ -6,4 +6,6 @@
     <table id="admin_activitiy" class="grid">
         <tbody id="activity_list" ></tbody>
     </table>
+    <input id="moreadminacvitity" type="button" value="<?php p($l->t('More'));?>">
+    <input id="lessadminacvitity" type="button" value="<?php p($l->t('Less'));?>">
 </div>
