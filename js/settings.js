@@ -29,7 +29,6 @@ $(function() {
             .done(function(data) {
                 if(data.length) {
                     OCAdminActivity.Operation.appendContent(data);
-                } else if(data.length) {
                 } else {
                 }
             });
