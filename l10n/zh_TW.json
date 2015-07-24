@@ -5,11 +5,20 @@
     "%1$s update the value of %2$s to %3$s." : "%1$s 改變 %2$s 的值成爲 %3$s.",
     "Configuration History" : "設定變更記錄",
     "<strong>shareapi_enabled</strong>" : "<strong>允許 apps 使用分享 API</strong>",
+    "<strong>shareapi_allow_links</strong>" : "<strong>允許使用者藉由連結分享檔案</strong>",
+    "<strong>shareapi_enforce_links_password</strong>" : "<strong>強制分享連結使用密碼保護</strong>",
     "<strong>shareapi_allow_public_upload</strong>" : "<strong>允許任何人上傳</strong>",
     "<strong>shareapi_allow_public_notification</strong>" : "<strong>允許使用者寄送有關分享檔案的郵件通知</strong>",
+    "<strong>shareapi_default_expire_date</strong>" : "<strong>設置分享連結預設分享期限</strong>",
+    "<strong>shareapi_expire_after_n_days</strong>" : "<strong>預設分享期限</strong>",
+    "<strong>shareapi_enforce_expire_date</strong>" : "<strong>強制分享連結設置分享期限</strong>",
     "<strong>shareapi_allow_resharing</strong>" : "<strong>允許轉貼分享</strong>",
+    "<strong>shareapi_only_share_with_group_members</strong>" : "<strong>允許使用者寄送檔案分享通知給其他使用者</strong>",
+    "<strong>shareapi_exclude_groups</strong>" : "<strong>禁止群組分享檔案</strong>",
+    "<strong>shareapi_exclude_groups_list</strong>" : "<strong>被禁止分享檔案的群組</strong>",
+    "<strong>outgoing_server2server_share_enabled</strong>" : "<strong>允許使用者分享檔案至其它伺服器</strong>",
+    "<strong>incoming_server2server_share_enabled</strong>" : "<strong>允許使用者接收其它伺服器的檔案分享</strong>",
     "<strong>backgroundjobs_mode</strong>" : "<strong>工作排程類型</strong>",
-    "<strong>shareapi_expire_after_n_days</strong>" : "<strong>shareapi_expire_after_n_days</strong>",
     "No more history." : "沒有更多的記錄"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
