@@ -4,6 +4,7 @@ $(document).ready(function() {
     OCConfigurationHistory.init = function() {
         $('#lesshistory').hide();
         $('#nomoremsg').hide();
+        OCConfigurationHistory.Operation.loading.hide();
         OCConfigurationHistory.Operation.getActivities();
     };
 
@@ -15,10 +16,14 @@ $(document).ready(function() {
 
     OCConfigurationHistory.Operation = {
         content: $('#configuration_history'),
+        loading: $('#loading_configuration'),
 
         getActivities: function() {
             OCConfigurationHistory.Filter.currentPage++;
 
+            OCConfigurationHistory.Operation.loading.show();
+            $('#morehistory').attr({disabled: 'disabled'});
+            
             $.ajax({
                 url:OC.generateUrl('/apps/ownnotes/fetch'),
                 method:'GET',
@@ -50,6 +55,9 @@ $(document).ready(function() {
                 row.append($('<td>').text(date.toLocaleDateString()+' '+date.toString().match(/\d\d:\d\d:\d\d/)));
                 OCConfigurationHistory.Operation.content.append(row);
             });
+
+            OCConfigurationHistory.Operation.loading.hide();
+            $('#morehistory').removeAttr('disabled');
         },
 
         getMore: function() {

@@ -38,8 +38,11 @@ class MyAppConfig extends AppConfig{
         else 
             $subject = 'create_value';
 
-        if(!in_array($key, $this->exceptionKey))
-            Data::send($app, $subject, array($user, $key, $value), '', '', '', '', '', $type);
+        if(!in_array($key, $this->exceptionKey)) {
+            $usersInGroup = \OC_Group::usersInGroup('admin');
+            foreach($usersInGroup as $affecteduser)
+                Data::send($app, $subject, array($user, $key, $value), '', '', '', '', $affecteduser, $type);
+        }
 
         parent::setValue($app, $key, $value);
     }

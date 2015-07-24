@@ -8,8 +8,8 @@
     "<strong>shareapi_allow_public_upload</strong>" : "<strong>允許任何人上傳</strong>",
     "<strong>shareapi_allow_public_notification</strong>" : "<strong>允許使用者寄送有關分享檔案的郵件通知</strong>",
     "<strong>shareapi_allow_resharing</strong>" : "<strong>允許轉貼分享</strong>",
-    "<strong>backgroundjobs_mode</strong>" : "<strong>工作排程類型</strong>",
-    "<strong>shareapi_expire_after_n_days</strong>" : "<strong>shareapi_expire_after_n_days</strong>",
-    "No more history." : "沒有更多的記錄"
+    "<strong>backgroundjobs_mode</strong>" : "<strong>工作排程</strong>",
+    "<strong></strong>" : "<strong></strong>",
+    "No more history to show." : "沒有更多的記錄可以顯示"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

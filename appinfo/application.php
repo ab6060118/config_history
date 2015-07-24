@@ -78,8 +78,7 @@ class Application extends App {
         });
 
 		$container->registerService('CurrentUID', function($c) {
-            $serverContainer = $c->getServer();
-			$user = $serverContainer->getUserSession()->getUser();
+			$user = $c->getServer()->getUserSession()->getUser();
             
 			return ($user) ? $user->getUID() : '';
 		});
