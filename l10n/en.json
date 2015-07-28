@@ -8,12 +8,16 @@
     "<strong>shareapi_expire_after_n_days</strong>" : "<strong>Default expiration date</strong>",
     "<strong>shareapi_enforce_expire_date</strong>" : "<strong>Enforce expiration date</strong>",
     "<strong>shareapi_allow_resharing</strong>" : "<strong>Allow resharing</strong>",
-    "<strong>shareapi_only_share_with_group_members</strong>" : "<strong>Allow users to send mail notification for shared files to other users</strong>",
+    "<strong>shareapi_only_share_with_group_members</strong>" : "<strong>Restrict users to only share with users in their groups</strong>",
+    "<strong>shareapi_allow_mail_notification</strong>" : "<strong>Allow users to send mail notification for shared files to other users</strong>",
     "<strong>shareapi_exclude_groups</strong>" : "<strong>Exclude groups from sharing</strong>",
     "<strong>shareapi_exclude_groups_list</strong>" : "<strong>shareapi_exclude_groups_list</strong>",
     "<strong>outgoing_server2server_share_enabled</strong>" : "<strong>Allow users on this server to send shares to other servers</strong>",
     "<strong>incoming_server2server_share_enabled</strong>" : "<strong>Allow users on this server to receive shares from other servers</strong>",
+    "<strong>allow_user_mounting</strong>" : "<strong>Enable User External Storage</strong>",
+    "<strong>user_mounting_backends</strong>" : "<strong>Allow users to mount the following external storage</strong>",
     "<strong>backgroundjobs_mode</strong>" : "<strong>Cron job type</strong>",
+    "<strong>encryption_enabled</strong>" : "<strong>Enable server-side encryption</strong>",
     "<strong></strong>" : "<strong></strong>"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

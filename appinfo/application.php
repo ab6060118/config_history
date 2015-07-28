@@ -12,6 +12,7 @@ use OCA\Activity\ParameterHelper;
 
 use OCA\OwnNotes\Activity;
 use OCA\OwnNotes\MyAppConfig;
+use OCA\OwnNotes\EncryptionMessageHandler;
 use OCA\OwnNotes\AdminActivityManager;
 use OCA\OwnNotes\Controller\ConfigurationHistory;
 
@@ -35,7 +36,15 @@ class Application extends App {
             );
         });
 
-		$container->registerService('AdminActivityL10N', function($c) {
+        $container->registerService('AdminActivity', function($c) {
+            $serverContainer = $c->getServer();
+            return new Activity(
+                $serverContainer->query('L10NFactory'),
+                $serverContainer->getURLGenerator()
+            );
+        });
+
+		$container->registerService('L10N', function($c) {
 			return $c->getServer()->getL10N('ownnotes');
 		});
 
@@ -53,10 +62,10 @@ class Application extends App {
 					$serverContainer->getUserManager(),
 					new View(''),
 					$serverContainer->getConfig(),
-					$c->query('AdminActivityL10N'),
+					$c->query('L10N'),
 					$c->query('CurrentUID')
 				),
-				$c->query('AdminActivityL10N')
+				$c->query('L10N')
 			);
 		});
 
@@ -95,11 +104,14 @@ class Application extends App {
             );
         });
 
-        $container->query('AdminActivityManager')->registerExtension(function() {
-            return new Activity(
-                \OC::$server->query('L10NFactory'),
-                \OC::$server->getURLGenerator()
-            ); 
+        $container->query('AdminActivityManager')->registerExtension(function() use ($container) {
+            return $container->query('AdminActivity');
         });
+
+        $container->query('AdminActivity')->registerMessageHandler(
+            new EncryptionMessageHandler(
+                $container->query('L10N')
+            )
+        );
     }
 }

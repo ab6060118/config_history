@@ -26,7 +26,7 @@ use OC\L10N\Factory;
 use OCP\Activity\IExtension;
 use OCP\IURLGenerator;
 
-class Activity implements IExtension {
+class Activity implements IExtension, IMessageHandlerManager {
 	const ADMIN_ACTIVITY_APP = 'ownnotes';
 
     const FILTER_ADMIN_ACTIVITIES = 'configuration_history';
@@ -45,6 +45,9 @@ class Activity implements IExtension {
 	/** @var IURLGenerator */
 	protected $URLGenerator;
 
+	/** @var IMessageHandler */
+	protected $messageHandler = array();
+    
 	/**
 	 * @param Factory $languageFactory
 	 * @param IURLGenerator $URLGenerator
@@ -204,4 +207,13 @@ class Activity implements IExtension {
 	public function getQueryForFilter($filter) {
 		return false;
 	}
+
+    /*
+     *
+     * @param OCA\OwnNotes\IMessageHandler
+     */
+    public function registerMessageHandler(IMessageHandler $messageHandler) {
+        $appName = $messageHandler->getAppName();
+        $this->messageHandler[$appName] = $messageHandler;
+    }
 }
