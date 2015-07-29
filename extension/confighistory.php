@@ -2,6 +2,6 @@
 
 namespace OCA\Config_History\Extension;
 
-class User {
+class ConfigHistory {
     const ADMIN_OPERATION = 'admin_operation';
 }

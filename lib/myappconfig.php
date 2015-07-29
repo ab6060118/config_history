@@ -18,7 +18,7 @@ class MyAppConfig extends AppConfig{
     }
 
     public function setValue($app, $key, $value) {
-        $type = Extension\User::ADMIN_OPERATION;
+        $type = Extension\ConfigHistory::ADMIN_OPERATION;
         $user = User::getUser();
         $inserted = false; 
 
