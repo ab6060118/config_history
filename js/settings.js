@@ -25,7 +25,7 @@ $(document).ready(function() {
             $('#morehistory').attr({disabled: 'disabled'});
             
             $.ajax({
-                url:OC.generateUrl('/apps/ownnotes/fetch'),
+                url:OC.generateUrl('/apps/confighistory/fetch'),
                 method:'GET',
                 data: {
                     filter: OCConfigurationHistory.Filter.filter,

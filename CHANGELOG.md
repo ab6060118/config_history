@@ -1,2 +1,2 @@
-owncloud-ownnotes (0.0.1)
+owncloud-confighistory (0.0.1)
 * First release

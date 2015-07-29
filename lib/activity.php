@@ -20,7 +20,7 @@
  *
  */
 
-namespace OCA\OwnNotes;
+namespace OCA\ConfigHistory;
 
 use OC\L10N\Factory;
 use OCP\Activity\IExtension;
@@ -28,7 +28,7 @@ use OCP\IURLGenerator;
 use OCP\IConfig;
 
 class Activity implements IExtension, IMessageHandlerManager {
-	const ADMIN_ACTIVITY_APP = 'ownnotes';
+	const ADMIN_ACTIVITY_APP = 'confighistory';
 
     const FILTER_ADMIN_ACTIVITIES = 'configuration_history';
 
@@ -225,7 +225,7 @@ class Activity implements IExtension, IMessageHandlerManager {
 
     /*
      *
-     * @param OCA\OwnNotes\IMessageHandler
+     * @param OCA\ConfigHistory\IMessageHandler
      */
     public function registerMessageHandler(IMessageHandler $messageHandler) {
         if(!$messageHandler instanceof IMessageHandler) {

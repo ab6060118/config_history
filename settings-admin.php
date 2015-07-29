@@ -1,4 +1,4 @@
 <?php
-$tmpl = new \OCP\Template('ownnotes', 'settings-admin');
+$tmpl = new \OCP\Template('confighistory', 'settings-admin');
 
 return $tmpl->fetchPage();

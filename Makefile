@@ -1,6 +1,6 @@
 # Makefile for building the project
 
-app_name=ownnotes
+app_name=confighistory
 project_dir=$(CURDIR)/../$(app_name)
 build_dir=$(CURDIR)/build/artifacts
 appstore_dir=$(build_dir)/appstore

@@ -30,14 +30,14 @@ install:
   # install owncloud
   - cd ..
   - ocdev setup core --dir owncloud --branch $BRANCH --no-history
-  - mv ownnotes owncloud/apps
-  - phpenv config-add owncloud/apps/ownnotes/tests/travis/php.ini
+  - mv confighistory owncloud/apps
+  - phpenv config-add owncloud/apps/confighistory/tests/travis/php.ini
   - cd owncloud
   - ./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --database-pass --admin-user admin --admin-pass admin --database $DB
-  - ./occ app:enable ownnotes
+  - ./occ app:enable confighistory
 
 before_script:
-  - cd apps/ownnotes
+  - cd apps/confighistory
 
 script:
   - phpunit -c phpunit.xml

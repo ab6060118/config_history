@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\OwnNotes;
+namespace OCA\ConfigHistory;
 
 class DefaultMessageHandler implements IMessageHandler {
     const MESSAGE_HANDLER_APP = 'default';

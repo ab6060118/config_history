@@ -1,6 +1,6 @@
 <?php
 /**
- * ownCloud - ownnotes
+ * ownCloud - confighistory
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -9,7 +9,7 @@
  * @copyright dauba 2015
  */
 
-namespace OCA\OwnNotes\Controller;
+namespace OCA\ConfigHistory\Controller;
 
 use PHPUnit_Framework_TestCase;
 
@@ -25,7 +25,7 @@ class PageControllerTest extends PHPUnit_Framework_TestCase {
 		$request = $this->getMockBuilder('OCP\IRequest')->getMock();
 
 		$this->controller = new PageController(
-			'ownnotes', $request, $this->userId
+			'confighistory', $request, $this->userId
 		);
 	}
 

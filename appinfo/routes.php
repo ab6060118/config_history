@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\OwnNotes\AppInfo;
+namespace OCA\ConfigHistory\AppInfo;
 
 $application = new Application();
 $application->registerRoutes($this, ['routes' => [

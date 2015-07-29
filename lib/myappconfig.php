@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\OwnNotes;
+namespace OCA\ConfigHistory;
 
 use OC\AppConfig;
 use OC\DB\Connection;

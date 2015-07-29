@@ -1,5 +1,5 @@
 <?php
-namespace OCA\OwnNotes\AppInfo;
+namespace OCA\ConfigHistory\AppInfo;
 
 use OCP\AppFramework\App;
 
@@ -10,23 +10,23 @@ use OCA\Activity\UserSettings;
 use OCA\Activity\DataHelper;
 use OCA\Activity\ParameterHelper;
 
-use OCA\OwnNotes\Activity;
-use OCA\OwnNotes\MyAppConfig;
-use OCA\OwnNotes\EncryptionMessageHandler;
-use OCA\OwnNotes\FilesExternalMessageHandler;
-use OCA\OwnNotes\DefaultMessageHandler;
-use OCA\OwnNotes\AdminActivityManager;
-use OCA\OwnNotes\Controller\ConfigurationHistory;
+use OCA\ConfigHistory\Activity;
+use OCA\ConfigHistory\MyAppConfig;
+use OCA\ConfigHistory\EncryptionMessageHandler;
+use OCA\ConfigHistory\FilesExternalMessageHandler;
+use OCA\ConfigHistory\DefaultMessageHandler;
+use OCA\ConfigHistory\AdminActivityManager;
+use OCA\ConfigHistory\Controller\ConfigurationHistory;
 
 class Application extends App {
 
     public function __construct(array $urlParams=array()){
-        parent::__construct('ownnotes', $urlParams);
+        parent::__construct('confighistory', $urlParams);
 
         $container = $this->getContainer();
 
         $container->getServer()->registerService('AppConfig', function($c) {
-            return new \OCA\OwnNotes\MyAppConfig(\OC_DB::getConnection());
+            return new \OCA\ConfigHistory\MyAppConfig(\OC_DB::getConnection());
         });
 
         $container->registerService('AdminActivityManager', function($c) {
@@ -48,7 +48,7 @@ class Application extends App {
         });
 
 		$container->registerService('L10N', function($c) {
-			return $c->getServer()->getL10N('ownnotes');
+			return $c->getServer()->getL10N('confighistory');
 		});
 
         $container->registerService('ActivityData', function($c) {

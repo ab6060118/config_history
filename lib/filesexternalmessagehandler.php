@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\OwnNotes;
+namespace OCA\ConfigHistory;
 
 class FilesExternalMessageHandler implements IMessageHandler {
 
