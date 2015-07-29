@@ -49,9 +49,10 @@ $(document).ready(function() {
         appendContent: function(activities) {
             // console.dir(activity);
             $.each(activities, function(key, activity) {
+                // console.dir(activity);
                 var date = new Date(activity.timestamp*1000);
                 var row = $('<tr>');
-                row.append($('<td>').html(activity.subjectformatted.markup.trimmed));
+                row.append($('<td>').html(activity.subjectformatted.full));
                 row.append($('<td>').text(date.toLocaleDateString()+' '+date.toString().match(/\d\d:\d\d:\d\d/)));
                 OCConfigurationHistory.Operation.content.append(row);
             });

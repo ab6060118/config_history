@@ -2,13 +2,13 @@
 
 namespace OCA\OwnNotes;
 
-class EncryptionMessageHandler implements IMessageHandler {
-    const MESSAGE_HANDLER_APP = 'encryption';
+class DefaultMessageHandler implements IMessageHandler {
+    const MESSAGE_HANDLER_APP = 'default';
 
     const SUBJECT_INSTALLED_VERSION = 'installed_version';
     const SUBJECT_TYPES = 'types';
+    const SUBJECT_OCSID = 'ocsid';
     const SUBJECT_ENABLED = 'enabled';
-    const SUBJECT_RECOVERY_ADMIN_ENABLED = 'recoveryAdminEnabled';
 
     protected $l;
 
@@ -22,11 +22,11 @@ class EncryptionMessageHandler implements IMessageHandler {
      */
     public function handle($params, $appName = '') {
         switch($params[1]) {
-            case self::SUBJECT_RECOVERY_ADMIN_ENABLED:
+            case self::SUBJECT_OCSID:
             case self::SUBJECT_ENABLED:
             case self::SUBJECT_TYPES:
             case self::SUBJECT_INSTALLED_VERSION:
-                $params[1] = $this->keyGenerator($params[1]);
+                $params[1] = $this->keyGenerator($params[1], $appName);
         }
         return $params;
     }
@@ -41,6 +41,6 @@ class EncryptionMessageHandler implements IMessageHandler {
      * @return String
      */
     public function keyGenerator($key, $appName = '') {
-        return self::MESSAGE_HANDLER_APP.'_'.$key;
+        return $appName.'_'.$key;
     }
 }

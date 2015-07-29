@@ -19,11 +19,18 @@
     "<strong>shareapi_exclude_groups_list</strong>" : "<strong>被禁止分享檔案的群組列表</strong>",
     "<strong>outgoing_server2server_share_enabled</strong>" : "<strong>允許使用者分享檔案至其它伺服器</strong>",
     "<strong>incoming_server2server_share_enabled</strong>" : "<strong>允許使用者接收其它伺服器的檔案分享</strong>",
-    "<strong>allow_user_mounting</strong>" : "<strong>允許使用者使用外部儲存</strong>",
-    "<strong>user_mounting_backends</strong>" : "<strong>允許使用者自行掛載以下的外部儲存</strong>",
+    "<strong>files_external_allow_user_mounting</strong>" : "<strong>允許使用者使用外部儲存</strong>",
+    "<strong>files_external_user_mounting_backends</strong>" : "<strong>允許使用者自行掛載以下的外部儲存</strong>",
     "<strong>backgroundjobs_mode</strong>" : "<strong>工作排程類型</strong>",
     "No more history." : "沒有更多的記錄",
     "<strong>encryption_enabled</strong>" : "<strong>啓用伺服器端加密</strong>",
+    "<strong>encryption_types</strong>" : "<strong>加密類型</strong>",
+    "<strong>encryption_recoveryAdminEnabled</strong>" : "<strong>啓用還原金鑰</strong>",
+    "<strong>encryption_installed_version</strong>" : "<strong>Encryption App版本</strong>",
+    "<strong>calendar_enabled</strong>" : "<strong>啓用Calender App</strong>",
+    "<strong>calendar_installed_version</strong>" : "<strong>Calender App版本</strong>",
+    "<strong>calendar_ocsid</strong>" : "<strong>Calender ocsID</strong>",
+    "<strong>calendar_types</strong>" : "<strong>Calender 類型</strong>",
     "<strong></strong>" : "<strong></strong>"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

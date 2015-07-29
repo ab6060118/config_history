@@ -25,6 +25,7 @@ namespace OCA\OwnNotes;
 use OC\L10N\Factory;
 use OCP\Activity\IExtension;
 use OCP\IURLGenerator;
+use OCP\IConfig;
 
 class Activity implements IExtension, IMessageHandlerManager {
 	const ADMIN_ACTIVITY_APP = 'ownnotes';
@@ -48,14 +49,18 @@ class Activity implements IExtension, IMessageHandlerManager {
 	/** @var IMessageHandler */
 	protected $messageHandler = array();
     
+	/** @var IConfig */
+	protected $config;
+
 	/**
 	 * @param Factory $languageFactory
 	 * @param IURLGenerator $URLGenerator
 	 */
-	public function __construct(Factory $languageFactory, IURLGenerator $URLGenerator) {
+	public function __construct(Factory $languageFactory, IURLGenerator $URLGenerator, IConfig $config) {
 		$this->languageFactory = $languageFactory;
 		$this->l = $this->getL10N();
 		$this->URLGenerator = $URLGenerator;
+		$this->config = $config;
 	}
 
 	/**
@@ -110,8 +115,18 @@ class Activity implements IExtension, IMessageHandlerManager {
 	 * @return string|false
 	 */
 	public function translate($app, $text, $params, $stripPath, $highlightParams, $languageCode) {
-        $params[1] = (string) $this->l->t($params[1]);
+        if(array_key_exists($app, $this->messageHandler) && $app !== 'core') {
+            $params = $this->messageHandler[$app]->handle($params);
+        } else {
+            $params = $this->messageHandler['default']->handle($params, $app);
+        }
 
+        if($this->config->getSystemValue('markup_configuration_history', 'owncloud')) {
+            $params = $this->markupParams($params);
+        }
+
+        $params[1] = (string) $this->l->t($params[1]);
+        
 		switch ($text) {
             case self::SUBJECT_CREATE_VALUE:
 				return (string) $this->l->t('%1$s create the value of %2$s to %3$s.', $params);
@@ -213,7 +228,22 @@ class Activity implements IExtension, IMessageHandlerManager {
      * @param OCA\OwnNotes\IMessageHandler
      */
     public function registerMessageHandler(IMessageHandler $messageHandler) {
+        if(!$messageHandler instanceof IMessageHandler) {
+            return ;
+        }
         $appName = $messageHandler->getAppName();
         $this->messageHandler[$appName] = $messageHandler;
+    }
+
+    /*
+     * @param Array
+     * @return Array
+     */
+    private function markupParams($params) {
+        foreach($params as $key => $param) {
+            $params[$key] = '<strong>' . $param . '</strong>';
+        }
+
+        return $params;
     }
 }

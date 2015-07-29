@@ -13,6 +13,8 @@ use OCA\Activity\ParameterHelper;
 use OCA\OwnNotes\Activity;
 use OCA\OwnNotes\MyAppConfig;
 use OCA\OwnNotes\EncryptionMessageHandler;
+use OCA\OwnNotes\FilesExternalMessageHandler;
+use OCA\OwnNotes\DefaultMessageHandler;
 use OCA\OwnNotes\AdminActivityManager;
 use OCA\OwnNotes\Controller\ConfigurationHistory;
 
@@ -40,7 +42,8 @@ class Application extends App {
             $serverContainer = $c->getServer();
             return new Activity(
                 $serverContainer->query('L10NFactory'),
-                $serverContainer->getURLGenerator()
+                $serverContainer->getURLGenerator(),
+                $c->query('Config')
             );
         });
 
@@ -50,6 +53,10 @@ class Application extends App {
 
         $container->registerService('ActivityData', function($c) {
             return new Data($c->query('AdminActivityManager'));
+        });
+
+        $container->registerService('Config', function($c) {
+            return $c->getServer()->getConfig();
         });
 
 		$container->registerService('DataHelper', function($c) {
@@ -110,6 +117,18 @@ class Application extends App {
 
         $container->query('AdminActivity')->registerMessageHandler(
             new EncryptionMessageHandler(
+                $container->query('L10N')
+            )
+        );
+
+        $container->query('AdminActivity')->registerMessageHandler(
+            new FilesExternalMessageHandler(
+                $container->query('L10N')
+            )
+        );
+
+        $container->query('AdminActivity')->registerMessageHandler(
+            new DefaultMessageHandler(
                 $container->query('L10N')
             )
         );
