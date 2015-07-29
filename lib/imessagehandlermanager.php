@@ -1,12 +1,12 @@
 <?php
 
-namespace OCA\ConfigHistory;
+namespace OCA\Config_History;
 
 interface IMessageHandlerManager {
 
     /**
      *
-     * @param OCA\ConfigHistory\IMessageHandler $messageHandler
+     * @param OCA\Config_History\IMessageHandler $messageHandler
      * @return void
      */
     public function registerMessageHandler(IMessageHandler $messageHandler);

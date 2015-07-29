@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\ConfigHistory;
+namespace OCA\Config_History;
 
 class DefaultMessageHandler implements IMessageHandler {
     const MESSAGE_HANDLER_APP = 'default';

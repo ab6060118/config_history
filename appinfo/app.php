@@ -1,6 +1,6 @@
 <?php
 /**
- * ownCloud - confighistory
+ * ownCloud - config_history
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -9,8 +9,8 @@
  * @copyright dauba 2015
  */
 
-namespace OCA\ConfigHistory\AppInfo;
+namespace OCA\Config_History\AppInfo;
 
 $app = new Application();
 
-\OCP\App::registerAdmin('confighistory', 'settings-admin');
+\OCP\App::registerAdmin('config_history', 'settings-admin');

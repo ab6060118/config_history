@@ -1,9 +1,9 @@
 <?php
 
-namespace OCA\ConfigHistory;
+namespace OCA\Config_History;
 
 use OCA\Activity\Data;
-use OCA\ConfigHistory\Extension\User;
+use OCA\Config_History\Extension\User;
 
 class UserHooks {
     public static function userCreate($params) {

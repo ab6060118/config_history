@@ -1,5 +1,5 @@
 <?php
-namespace OCA\ConfigHistory\AppInfo;
+namespace OCA\Config_History\AppInfo;
 
 use OCP\AppFramework\App;
 
@@ -10,23 +10,23 @@ use OCA\Activity\UserSettings;
 use OCA\Activity\DataHelper;
 use OCA\Activity\ParameterHelper;
 
-use OCA\ConfigHistory\Activity;
-use OCA\ConfigHistory\MyAppConfig;
-use OCA\ConfigHistory\EncryptionMessageHandler;
-use OCA\ConfigHistory\FilesExternalMessageHandler;
-use OCA\ConfigHistory\DefaultMessageHandler;
-use OCA\ConfigHistory\AdminActivityManager;
-use OCA\ConfigHistory\Controller\ConfigurationHistory;
+use OCA\Config_History\Activity;
+use OCA\Config_History\MyAppConfig;
+use OCA\Config_History\EncryptionMessageHandler;
+use OCA\Config_History\FilesExternalMessageHandler;
+use OCA\Config_History\DefaultMessageHandler;
+use OCA\Config_History\AdminActivityManager;
+use OCA\Config_History\Controller\ConfigurationHistory;
 
 class Application extends App {
 
     public function __construct(array $urlParams=array()){
-        parent::__construct('confighistory', $urlParams);
+        parent::__construct('config_history', $urlParams);
 
         $container = $this->getContainer();
 
         $container->getServer()->registerService('AppConfig', function($c) {
-            return new \OCA\ConfigHistory\MyAppConfig(\OC_DB::getConnection());
+            return new \OCA\Config_History\MyAppConfig(\OC_DB::getConnection());
         });
 
         $container->registerService('AdminActivityManager', function($c) {
@@ -48,7 +48,7 @@ class Application extends App {
         });
 
 		$container->registerService('L10N', function($c) {
-			return $c->getServer()->getL10N('confighistory');
+			return $c->getServer()->getL10N('config_history');
 		});
 
         $container->registerService('ActivityData', function($c) {

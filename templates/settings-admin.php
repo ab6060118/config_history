@@ -1,6 +1,6 @@
 <?php
-    script('confighistory', 'settings');
-    style('confighistory', 'style');
+    script('config_history', 'settings');
+    style('config_history', 'style');
 ?>
 <div class="section" id="cofiguration_history_section">
     <h2><?php p($l->t('Configuration History'))?></h2>

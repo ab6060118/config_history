@@ -1,6 +1,6 @@
 <?php
 /**
- * ownCloud - confighistory
+ * ownCloud - config_history
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -9,7 +9,7 @@
  * @copyright dauba 2015
  */
 
-namespace OCA\ConfigHistory\Controller;
+namespace OCA\Config_History\Controller;
 
 use OCP\IRequest;
 use OCP\AppFramework\Controller;

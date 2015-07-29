@@ -1,6 +1,6 @@
 <?php
 /**
- * ownCloud - confighistory
+ * ownCloud - config_history
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -9,7 +9,7 @@
  * @copyright dauba 2015
  */
 
-namespace OCA\ConfigHistory\Controller;
+namespace OCA\Config_History\Controller;
 
 use PHPUnit_Framework_TestCase;
 
@@ -25,7 +25,7 @@ class PageControllerTest extends PHPUnit_Framework_TestCase {
 		$request = $this->getMockBuilder('OCP\IRequest')->getMock();
 
 		$this->controller = new PageController(
-			'confighistory', $request, $this->userId
+			'config_history', $request, $this->userId
 		);
 	}
 

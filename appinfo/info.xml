@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <info>
-    <id>confighistory</id>
+    <id>config_history</id>
     <name>Config History</name>
     <description>My first ownCloud app</description>
     <licence>AGPL</licence>
     <author>dauba</author>
     <version>0.0.2</version>
-    <namespace>ConfigHistory</namespace>
+    <namespace>Config_History</namespace>
     <category>other</category>
     <dependencies>
         <owncloud min-version="8.1" />

@@ -20,7 +20,7 @@
  *
  */
 
-namespace OCA\ConfigHistory;
+namespace OCA\Config_History;
 
 use OC\L10N\Factory;
 use OCP\Activity\IExtension;
@@ -28,7 +28,7 @@ use OCP\IURLGenerator;
 use OCP\IConfig;
 
 class Activity implements IExtension, IMessageHandlerManager {
-	const ADMIN_ACTIVITY_APP = 'confighistory';
+	const ADMIN_ACTIVITY_APP = 'config_history';
 
     const FILTER_ADMIN_ACTIVITIES = 'configuration_history';
 
@@ -225,7 +225,7 @@ class Activity implements IExtension, IMessageHandlerManager {
 
     /*
      *
-     * @param OCA\ConfigHistory\IMessageHandler
+     * @param OCA\Config_History\IMessageHandler
      */
     public function registerMessageHandler(IMessageHandler $messageHandler) {
         if(!$messageHandler instanceof IMessageHandler) {

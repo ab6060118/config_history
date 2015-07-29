@@ -1,2 +1,2 @@
-owncloud-confighistory (0.0.1)
+owncloud-config_history (0.0.1)
 * First release

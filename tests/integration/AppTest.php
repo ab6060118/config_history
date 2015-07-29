@@ -1,6 +1,6 @@
 <?php
 /**
- * ownCloud - confighistory
+ * ownCloud - config_history
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -24,13 +24,13 @@ class AppTest extends TestCase {
 
     public function setUp() {
         parent::setUp();
-        $app = new App('confighistory');
+        $app = new App('config_history');
         $this->container = $app->getContainer();
     }
 
     public function testAppInstalled() {
         $appManager = $this->container->query('OCP\App\IAppManager');
-        $this->assertTrue($appManager->isInstalled('confighistory'));
+        $this->assertTrue($appManager->isInstalled('config_history'));
     }
 
 }
