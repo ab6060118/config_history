@@ -33,13 +33,13 @@ class FilesExternalMessageHandler implements IMessageHandler {
      * @return Array
      */
     public function handle($params, $appName = "") {
-        switch($params[1]) {
+        switch($params["key"]) {
             case self::SUBJECT_USER_MOUNTING_BACKENDS:
-                $params[2] = $this->backendTranslate($params[2]);
+                $params["vaule"] = $this->backendTranslate($params["value"]);
         }
-        $params[1] = DefaultMessageHandler::keyGenerator($params[1], self::MESSAGE_HANDLER_APP);
+        $params["key"] = DefaultMessageHandler::keyGenerator($params["key"], self::MESSAGE_HANDLER_APP);
 
-        return $params;
+        return array($params["user"], $params["key"], $params["value"]);
     }
 
     public function getAppName() {

@@ -17,10 +17,9 @@ class DefaultMessageHandler implements IMessageHandler {
      * @return Array
      */
     public function handle($params, $appName = "") {
-        $key = $params[1];
-        $key = self::keyGenerator($key, $appName);
-        $params[1] = $key;
-        return $params;
+        $params["key"] = self::keyGenerator($params["key"], $appName);
+
+        return array($params["user"], $params["key"], $params["value"]);
     }
 
     public function getAppName() {

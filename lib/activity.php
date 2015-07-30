@@ -115,10 +115,14 @@ class Activity implements IExtension, IMessageHandlerManager {
 	 * @return string|false
 	 */
 	public function translate($app, $text, $params, $stripPath, $highlightParams, $languageCode) {
-        $handler = self::findHandler($app);
+        $handler = $this->findHandler($app);
 
         if($handler){
-            $params = $handler->handle($params, $app);
+            $params = $handler->handle(array(
+                "user" => $params[0],
+                "key" => $params[1],
+                "value" => $params[2],
+            ), $app);
         }
 
         if($this->config->getSystemValue("markup_configuration_history")) {
@@ -257,10 +261,10 @@ class Activity implements IExtension, IMessageHandlerManager {
             return $this->messageHandlers[$app];
         }
 
-        if($app === 'core') {
+        if($app === "core") {
             return false;
         }
 
-        return $this->messageHandlers['default'];
+        return $this->messageHandlers["default"];
     }
 }

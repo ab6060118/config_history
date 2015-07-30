@@ -79,7 +79,7 @@ $(document).ready(function() {
         content: $('#configuration_history'),
         loading: $('#loading_configuration'),
         moreBtn: $('#morehistory'),
-        lessBtn: $('#lessBtn'),
+        lessBtn: $('#lesshistory'),
         noMoreMsg: $('#nomoremsg'),
     };
 
