@@ -2,6 +2,8 @@
 
 namespace OCA\Config_History;
 
+use OCP\IL10N;
+
 class FilesExternalMessageHandler implements IMessageHandler {
 
     const MESSAGE_HANDLER_APP = "files_external";

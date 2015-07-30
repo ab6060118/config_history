@@ -11,4 +11,5 @@
     <input id="morehistory" type="button" value="<?php p($l->t('More'));?>">
     <input id="lesshistory" type="button" value="<?php p($l->t('Less'));?>">
     <font id="nomoremsg" ><?php p($l->t('No more history.')); ?></font>
+    <font id="nomsg" ><?php p($l->t('There is no history.')); ?></font>
 </div>

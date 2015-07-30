@@ -1,9 +1,13 @@
+(function (OC, window, $, undefined) {
+'use strict';
+
 $(document).ready(function() {
     var OCConfigurationHistory = {};
 
     OCConfigurationHistory.init = function() {
         OCConfigurationHistory.View.lessBtn.hide();
         OCConfigurationHistory.View.noMoreMsg.hide();
+        OCConfigurationHistory.View.noMsg.hide();
         OCConfigurationHistory.View.loading.hide();
         OCConfigurationHistory.Operation.getActivities();
     };
@@ -30,9 +34,17 @@ $(document).ready(function() {
                 },
             })
             .done(function(data) {
-                if(data.length < OCConfigurationHistory.Filter.pageSize) {
+                if(data.length == 0 && OCConfigurationHistory.Filter.currentPage == 1) {
+                    OCConfigurationHistory.View.noMsg.show();
+                    OCConfigurationHistory.View.moreBtn.hide();
+                }
+                else if(data.length < OCConfigurationHistory.Filter.pageSize) {
                     OCConfigurationHistory.View.moreBtn.hide();
                     OCConfigurationHistory.View.noMoreMsg.show();
+                }
+
+                if(data.length < OCConfigurationHistory.Filter.pageSize && OCConfigurationHistory.Filter.currentPage == 2) {
+                    OCConfigurationHistory.View.lessBtn.hide();
                 }
 
                 OCConfigurationHistory.Operation.appendContent(data);
@@ -45,7 +57,6 @@ $(document).ready(function() {
 
         appendContent: function(activities) {
             $.each(activities, function(key, activity) {
-                console.dir(activity);
                 var date = new Date(activity.timestamp*1000);
                 var row = $('<tr>');
 
@@ -81,6 +92,7 @@ $(document).ready(function() {
         moreBtn: $('#morehistory'),
         lessBtn: $('#lesshistory'),
         noMoreMsg: $('#nomoremsg'),
+        noMsg: $('#nomsg'),
     };
 
 
@@ -94,3 +106,4 @@ $(document).ready(function() {
         OCConfigurationHistory.Operation.showLess();
     });
 });
+})(OC, window, jQuery);

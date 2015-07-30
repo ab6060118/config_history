@@ -23,6 +23,7 @@
     "<strong>files_external_user_mounting_backends</strong>" : "<strong>允許使用者自行掛載以下的外部儲存</strong>",
     "<strong>backgroundjobs_mode</strong>" : "<strong>工作排程類型</strong>",
     "No more history." : "沒有更多的記錄",
+    "There is no history." : "沒有任何紀錄",
     "<strong>encryption_enabled</strong>" : "<strong>啓用伺服器端加密</strong>",
     "<strong>encryption_types</strong>" : "<strong>加密類型</strong>",
     "<strong>encryption_recoveryAdminEnabled</strong>" : "<strong>啓用還原金鑰</strong>",
