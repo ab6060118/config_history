@@ -2,9 +2,9 @@ $(document).ready(function() {
     var OCConfigurationHistory = {};
 
     OCConfigurationHistory.init = function() {
-        $('#lesshistory').hide();
-        $('#nomoremsg').hide();
-        OCConfigurationHistory.Operation.loading.hide();
+        OCConfigurationHistory.View.lessBtn.hide();
+        OCConfigurationHistory.View.noMoreMsg.hide();
+        OCConfigurationHistory.View.loading.hide();
         OCConfigurationHistory.Operation.getActivities();
     };
 
@@ -15,14 +15,11 @@ $(document).ready(function() {
     };
 
     OCConfigurationHistory.Operation = {
-        content: $('#configuration_history'),
-        loading: $('#loading_configuration'),
-
         getActivities: function() {
             OCConfigurationHistory.Filter.currentPage++;
 
-            OCConfigurationHistory.Operation.loading.show();
-            $('#morehistory').attr({disabled: 'disabled'});
+            OCConfigurationHistory.View.loading.show();
+            OCConfigurationHistory.View.moreBtn.attr({disabled: 'disabled'});
             
             $.ajax({
                 url:OC.generateUrl('/apps/config_history/fetch'),
@@ -34,60 +31,66 @@ $(document).ready(function() {
             })
             .done(function(data) {
                 if(data.length < OCConfigurationHistory.Filter.pageSize) {
-                    $('#morehistory').hide();
-                    $('#nomoremsg').show();
+                    OCConfigurationHistory.View.moreBtn.hide();
+                    OCConfigurationHistory.View.noMoreMsg.show();
                 }
 
                 OCConfigurationHistory.Operation.appendContent(data);
             });
 
             if(OCConfigurationHistory.Filter.currentPage > 1) {
-                $('#lesshistory').show();
+                OCConfigurationHistory.View.lessBtn.show();
             }
         },
 
         appendContent: function(activities) {
-            // console.dir(activity);
             $.each(activities, function(key, activity) {
-                // console.dir(activity);
+                console.dir(activity);
                 var date = new Date(activity.timestamp*1000);
                 var row = $('<tr>');
+
+                date = date.toLocaleDateString() + ' ' + date.toString().match(/\d\d:\d\d:\d\d/);
                 row.append($('<td>').html(activity.subjectformatted.full));
-                row.append($('<td>').text(date.toLocaleDateString()+' '+date.toString().match(/\d\d:\d\d:\d\d/)));
-                OCConfigurationHistory.Operation.content.append(row);
+                row.append($('<td>').text(date));
+                OCConfigurationHistory.View.content.append(row);
             });
 
-            OCConfigurationHistory.Operation.loading.hide();
-            $('#morehistory').removeAttr('disabled');
+            OCConfigurationHistory.View.loading.hide();
+            OCConfigurationHistory.View.moreBtn.removeAttr('disabled');
         },
 
         getMore: function() {
-            OCConfigurationHistory.Operation.getActivities()
+            OCConfigurationHistory.Operation.getActivities();
         },
 
         showLess: function() {
             OCConfigurationHistory.Filter.currentPage--;
-            OCConfigurationHistory.Operation.content.find('tr').slice(OCConfigurationHistory.Filter.pageSize * OCConfigurationHistory.Filter.currentPage).remove();
-            if(OCConfigurationHistory.Filter.currentPage == 1) {
-                $('#lesshistory').hide();
+            OCConfigurationHistory.View.content.find('tr').slice(OCConfigurationHistory.Filter.pageSize * OCConfigurationHistory.Filter.currentPage).remove();
+            if(OCConfigurationHistory.Filter.currentPage === 1) {
+                OCConfigurationHistory.View.lessBtn.hide();
             }
 
-            $('#morehistory').show();
-            $('#nomoremsg').hide();
+            OCConfigurationHistory.View.moreBtn.show();
+            OCConfigurationHistory.View.noMoreMsg.hide();
         },
     };
 
     OCConfigurationHistory.View = {
+        content: $('#configuration_history'),
+        loading: $('#loading_configuration'),
+        moreBtn: $('#morehistory'),
+        lessBtn: $('#lessBtn'),
+        noMoreMsg: $('#nomoremsg'),
     };
 
 
     OCConfigurationHistory.init();
 
-    $('#morehistory').on('click', function() {
+    OCConfigurationHistory.View.moreBtn.on('click', function() {
         OCConfigurationHistory.Operation.getMore();
     });
 
-    $('#lesshistory').on('click', function() {
+    OCConfigurationHistory.View.lessBtn.on('click', function() {
         OCConfigurationHistory.Operation.showLess();
     });
 });

@@ -11,8 +11,7 @@ use OCA\Activity\DataHelper;
 use OCA\Activity\ParameterHelper;
 
 use OCA\Config_History\Activity;
-use OCA\Config_History\MyAppConfig;
-use OCA\Config_History\EncryptionMessageHandler;
+use OCA\Config_History\ConfigAppConfig;
 use OCA\Config_History\FilesExternalMessageHandler;
 use OCA\Config_History\DefaultMessageHandler;
 use OCA\Config_History\AdminActivityManager;
@@ -26,7 +25,7 @@ class Application extends App {
         $container = $this->getContainer();
 
         $container->getServer()->registerService('AppConfig', function($c) {
-            return new \OCA\Config_History\MyAppConfig(\OC_DB::getConnection());
+            return new \OCA\Config_History\ConfigAppConfig(\OC_DB::getConnection());
         });
 
         $container->registerService('AdminActivityManager', function($c) {
@@ -114,12 +113,6 @@ class Application extends App {
         $container->query('AdminActivityManager')->registerExtension(function() use ($container) {
             return $container->query('AdminActivity');
         });
-
-        $container->query('AdminActivity')->registerMessageHandler(
-            new EncryptionMessageHandler(
-                $container->query('L10N')
-            )
-        );
 
         $container->query('AdminActivity')->registerMessageHandler(
             new FilesExternalMessageHandler(

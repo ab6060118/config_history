@@ -22,9 +22,9 @@ class AdminActivityManager extends ActivityManager {
 
 	/** @var array list of filters "name" => "is valid" */
 	protected $validFilters = array(
-		'all'	=> true,
-		'by'	=> true,
-		'self'	=> true,
+		"all"	=> true,
+		"by"	=> true,
+		"self"	=> true,
 	);
 
     public function __construct(IRequest $request, IUserSession $session, IConfig $config) {

@@ -28,14 +28,14 @@ use OCP\IURLGenerator;
 use OCP\IConfig;
 
 class Activity implements IExtension, IMessageHandlerManager {
-	const ADMIN_ACTIVITY_APP = 'config_history';
+	const ADMIN_ACTIVITY_APP = "config_history";
 
-    const FILTER_ADMIN_ACTIVITIES = 'configuration_history';
+    const FILTER_ADMIN_ACTIVITIES = "configuration_history";
 
-    const TYPE_ADMIN_ACTIVITIES = 'admin_operation';
+    const TYPE_ADMIN_ACTIVITIES = "admin_operation";
 
-	const SUBJECT_CREATE_VALUE = 'create_value';
-	const SUBJECT_UPDATE_VALUE = 'update_value';
+	const SUBJECT_CREATE_VALUE = "create_value";
+	const SUBJECT_UPDATE_VALUE = "update_value";
 
 	/** @var IL10N */
 	protected $l;
@@ -47,7 +47,7 @@ class Activity implements IExtension, IMessageHandlerManager {
 	protected $URLGenerator;
 
 	/** @var IMessageHandler */
-	protected $messageHandler = array();
+	protected $messageHandlers = array();
     
 	/** @var IConfig */
 	protected $config;
@@ -81,7 +81,7 @@ class Activity implements IExtension, IMessageHandlerManager {
 	public function getNotificationTypes($languageCode) {
 		$l = $this->getL10N($languageCode);
 		return [
-			self::TYPE_ADMIN_ACTIVITIES => (string) $l->t('A new file or folder has been <strong>created</strong>'),
+			self::TYPE_ADMIN_ACTIVITIES => (string) $l->t("A new file or folder has been <strong>created</strong>"),
 		];
 	}
 
@@ -93,7 +93,7 @@ class Activity implements IExtension, IMessageHandlerManager {
 	 * @return array|false
 	 */
 	public function getDefaultTypes($method) {
-		if ($method === 'stream') {
+		if ($method === "stream") {
 			$settings = array();
 			$settings[] = self::TYPE_ADMIN_ACTIVITIES;
 			return $settings;
@@ -115,16 +115,17 @@ class Activity implements IExtension, IMessageHandlerManager {
 	 * @return string|false
 	 */
 	public function translate($app, $text, $params, $stripPath, $highlightParams, $languageCode) {
-        if(array_key_exists($app, $this->messageHandler) && $app !== 'core') {
-            $params = $this->messageHandler[$app]->handle($params);
-        } else {
-            $params = $this->messageHandler['default']->handle($params, $app);
+        $handler = self::findHandler($app);
+
+        if($handler){
+            $params = $handler->handle($params, $app);
         }
 
-        if($this->config->getSystemValue('markup_configuration_history', 'owncloud')) {
+        if($this->config->getSystemValue("markup_configuration_history")) {
             $params = $this->markupParams($params);
         }
 
+        // params[1] is key.
         $params[1] = (string) $this->l->t($params[1]);
         
 		switch ($text) {
@@ -175,8 +176,8 @@ class Activity implements IExtension, IMessageHandlerManager {
 	}
 
 	/**
-	 * The extension can define additional navigation entries. The array returned has to contain two keys 'top'
-	 * and 'apps' which hold arrays with the relevant entries.
+	 * The extension can define additional navigation entries. The array returned has to contain two keys "top"
+	 * and "apps" which hold arrays with the relevant entries.
 	 * If no further entries are to be added false is no be returned.
 	 *
 	 * @return array|false
@@ -214,7 +215,7 @@ class Activity implements IExtension, IMessageHandlerManager {
 	 * For a given filter the extension can specify the sql query conditions including parameters for that query.
 	 * In case the extension does not know the filter false is to be returned.
 	 * The query condition and the parameters are to be returned as array with two elements.
-	 * E.g. return array('`app` = ? and `message` like ?', array('mail', 'ownCloud%'));
+	 * E.g. return array("`app` = ? and `message` like ?", array("mail", "ownCloud%"));
 	 *
 	 * @param string $filter
 	 * @return array|false
@@ -232,7 +233,7 @@ class Activity implements IExtension, IMessageHandlerManager {
             return ;
         }
         $appName = $messageHandler->getAppName();
-        $this->messageHandler[$appName] = $messageHandler;
+        $this->messageHandlers[$appName] = $messageHandler;
     }
 
     /*
@@ -241,9 +242,25 @@ class Activity implements IExtension, IMessageHandlerManager {
      */
     private function markupParams($params) {
         foreach($params as $key => $param) {
-            $params[$key] = '<strong>' . $param . '</strong>';
+            $params[$key] = "<strong>" . $param . "</strong>";
         }
 
         return $params;
+    }
+
+    /*
+     * @param String
+     * @return Array
+     */
+    private function findHandler($app) {
+        if(array_key_exists($app, $this->messageHandlers)) {
+            return $this->messageHandlers[$app];
+        }
+
+        if($app === 'core') {
+            return false;
+        }
+
+        return $this->messageHandlers['default'];
     }
 }

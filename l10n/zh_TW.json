@@ -26,9 +26,9 @@
     "<strong>encryption_enabled</strong>" : "<strong>啓用伺服器端加密</strong>",
     "<strong>encryption_types</strong>" : "<strong>加密類型</strong>",
     "<strong>encryption_recoveryAdminEnabled</strong>" : "<strong>啓用還原金鑰</strong>",
-    "<strong>encryption_installed_version</strong>" : "<strong>Encryption App版本</strong>",
+    "<strong>encryption_installed_version</strong>" : "<strong>Encryption App 版本</strong>",
     "<strong>calendar_enabled</strong>" : "<strong>啓用Calender App</strong>",
-    "<strong>calendar_installed_version</strong>" : "<strong>Calender App版本</strong>",
+    "<strong>calendar_installed_version</strong>" : "<strong>Calender App 版本</strong>",
     "<strong>calendar_ocsid</strong>" : "<strong>Calender ocsID</strong>",
     "<strong>calendar_types</strong>" : "<strong>Calender 類型</strong>",
     "<strong></strong>" : "<strong></strong>"
