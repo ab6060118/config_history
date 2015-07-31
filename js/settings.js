@@ -59,10 +59,17 @@ $(document).ready(function() {
             $.each(activities, function(key, activity) {
                 var date = new Date(activity.timestamp*1000);
                 var row = $('<tr>');
+                var historyTd = $('<td>');
+                var dateTd = $('<td>');
 
                 date = date.toLocaleDateString() + ' ' + date.toString().match(/\d\d:\d\d:\d\d/);
-                row.append($('<td>').html(activity.subjectformatted.full));
-                row.append($('<td>').text(date));
+                historyTd.html(activity.subjectformatted.full);
+                historyTd.addClass('config-message');
+                dateTd.text(date);
+                dateTd.addClass('date');
+
+                row.append(historyTd);
+                row.append(dateTd);
                 OCConfigurationHistory.View.content.append(row);
             });
 

@@ -2,7 +2,7 @@
     script('config_history', 'settings');
     style('config_history', 'style');
 ?>
-<div class="section" id="cofiguration_history_section">
+<div class="section" id="configuration_history_section">
     <h2><?php p($l->t('Configuration History'))?></h2>
     <table id="configuration_history" class="grid">
         <tbody id="history_list" ></tbody>
