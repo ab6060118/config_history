@@ -38,6 +38,10 @@ $(document).ready(function() {
                     OCConfigurationHistory.View.noMsg.show();
                     OCConfigurationHistory.View.moreBtn.hide();
                 }
+                else if(data.length < OCConfigurationHistory.Filter.pageSize && OCConfigurationHistory.Filter.currentPage == 1) {
+                    OCConfigurationHistory.View.moreBtn.hide();
+                    OCConfigurationHistory.View.noMoreMsg.hide();
+                }
                 else if(data.length < OCConfigurationHistory.Filter.pageSize) {
                     OCConfigurationHistory.View.moreBtn.hide();
                     OCConfigurationHistory.View.noMoreMsg.show();
