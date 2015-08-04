@@ -12,12 +12,15 @@
     "<strong>shareapi_allow_mail_notification</strong>" : "<strong>Allow users to send mail notification for shared files to other users</strong>",
     "<strong>shareapi_exclude_groups</strong>" : "<strong>Exclude groups from sharing</strong>",
     "<strong>shareapi_exclude_groups_list</strong>" : "<strong>shareapi_exclude_groups_list</strong>",
+    "<strong>files_sharing_outgoing_server2server_share_enabled</strong>" : "<strong>Allow users on this server to send shares to other servers</strong>",
+    "<strong>files_sharing_incoming_server2server_share_enabled</strong>" : "<strong>Allow users on this server to receive shares from other servers</strong>",
     "<strong>outgoing_server2server_share_enabled</strong>" : "<strong>Allow users on this server to send shares to other servers</strong>",
     "<strong>incoming_server2server_share_enabled</strong>" : "<strong>Allow users on this server to receive shares from other servers</strong>",
-    "<strong>allow_user_mounting</strong>" : "<strong>Enable User External Storage</strong>",
-    "<strong>user_mounting_backends</strong>" : "<strong>Allow users to mount the following external storage</strong>",
-    "<strong>backgroundjobs_mode</strong>" : "<strong>Cron job type</strong>",
+    "<strong>files_external_allow_user_mounting</strong>" : "<strong>Enable User External Storage</strong>",
+    "<strong>files_external_user_mounting_backends</strong>" : "<strong>Allow users to mount the following external storage</strong>",
+    "<strong>files_external_backgroundjobs_mode</strong>" : "<strong>Cron job type</strong>",
     "<strong>encryption_enabled</strong>" : "<strong>Enable server-side encryption</strong>",
+    "<strong>files_default_quota</strong>" : "<strong>User default quota</strong>",
     "<strong></strong>" : "<strong></strong>"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
