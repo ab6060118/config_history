@@ -12,7 +12,7 @@
     "<strong>shareapi_default_expire_date</strong>" : "<strong>設置分享連結預設分享期限</strong>",
     "<strong>shareapi_expire_after_n_days</strong>" : "<strong>預設分享期限(天)</strong>",
     "<strong>shareapi_enforce_expire_date</strong>" : "<strong>強制分享連結設置分享期限</strong>",
-    "<strong>shareapi_allow_resharing</strong>" : "<strong>允許轉貼分享</strong>",
+    "<strong>shareapi_allow_resharing</strong>" : "<strong>允許再次被分享</strong>",
     "<strong>shareapi_only_share_with_group_members</strong>" : "<strong>限制使用者僅能分享給所在的群組成員</strong>",
     "<strong>shareapi_allow_mail_notification</strong>" : "<strong>允許使用者寄送檔案分享通知給其他使用者</strong>",
     "<strong>shareapi_exclude_groups</strong>" : "<strong>禁止群組分享檔案</strong>",
