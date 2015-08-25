@@ -11,7 +11,7 @@ use OCP\User;
 
 class ConfigAppConfig extends AppConfig{
 
-    private $exceptionKey = ["lastcron", "lastjob", "lastupdateResult", "lastupdatedat"];
+    private $exceptionKeys = ["/core_lastcron/", "/core_lastjob/", "/core_lastupdateResult/", "/core_lastupdatedat/", "/^files_external_\/\w+/"];
 
     public function __construct(Connection $conn) {
         parent::__construct($conn);
@@ -40,13 +40,23 @@ class ConfigAppConfig extends AppConfig{
             $subject = "create_value";
         }
 
-        if(!in_array($key, $this->exceptionKey)) {
+        if(!$this->match($app, $key)) {
             $usersInGroup = \OC_Group::usersInGroup("admin");
-            foreach($usersInGroup as $affecteduser)
+            foreach($usersInGroup as $affecteduser) {
                 Data::send($app, $subject, array($user, $key, $value), "", "", "", "", $affecteduser, $type);
+            }
         }
 
         parent::setValue($app, $key, $value);
     }
 
+    private function match($app, $key) {
+        foreach($this->exceptionKeys as $exceptionKey) {
+            if(preg_match($exceptionKey, $app . "_" . $key) == 1){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
