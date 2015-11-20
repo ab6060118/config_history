@@ -22,6 +22,8 @@ class FilesExternalMessageHandler implements IMessageHandler {
         "\OC\Files\Storage\OwnCloud" => "OwnCloud",
         "\OC\Files\Storage\SFTP" => "SFTP",
         "\OC\Files\Storage\SFTP_Key" => "SFTP with secret key login",
+        "\OC\Files\Storage\SMB_OC" => "SMB / CIFS",
+        "\OC\Files\Storage\SMB" => "SMB / CIFS using OC login",
         "\OC\Files\Storage\DAV" => "WebDAV"
     );
 
