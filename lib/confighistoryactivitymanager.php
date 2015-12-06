@@ -8,7 +8,7 @@ use OCP\IConfig;
 use OCP\IRequest;
 use OCP\IUserSession;
 
-class AdminActivityManager extends ActivityManager {
+class ConfigHistoryActivityManager extends ActivityManager {
 
 	/**
 	 * @var \Closure[]

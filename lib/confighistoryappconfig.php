@@ -4,17 +4,22 @@ namespace OCA\Config_History;
 
 use OC\AppConfig;
 use OC\DB\Connection;
+use OC\Activity\Event;
 
 use OCA\Activity\Data;
 
 use OCP\User;
 
-class ConfigAppConfig extends AppConfig{
+class ConfigHistoryAppConfig extends AppConfig{
 
     private $exceptionKeys = ["/core_lastcron/", "/core_lastjob/", "/core_lastupdateResult/", "/core_lastupdatedat/", "/^files_external_\/\w+/"];
+    private $data;
+    private $currentUID;
 
-    public function __construct(Connection $conn) {
+    public function __construct(Connection $conn, Data $data, $UID) {
         parent::__construct($conn);
+        $this->data = $data;
+        $this->currentUID = $UID;
     }
 
     public function setValue($app, $key, $value) {
@@ -22,18 +27,18 @@ class ConfigAppConfig extends AppConfig{
         $user = User::getUser();
         $inserted = false; 
 
-		if (!$this->hasKey($app, $key)) {
-			$inserted = (bool) $this->conn->insertIfNotExist("*PREFIX*appconfig", [
-				"appid" => $app,
-				"configkey" => $key,
-				"configvalue" => $value,
-			], [
-				"appid",
-				"configkey",
-			]);
-		}
+        if (!$this->hasKey($app, $key)) {
+            $inserted = (bool) $this->conn->insertIfNotExist("*PREFIX*appconfig", [
+                "appid" => $app,
+                "configkey" => $key,
+                "configvalue" => $value,
+            ], [
+                "appid",
+                "configkey",
+            ]);
+        }
 
-		if (!$inserted) {
+        if (!$inserted) {
             $subject = "update_value";
         }
         else {
@@ -43,7 +48,14 @@ class ConfigAppConfig extends AppConfig{
         if(!$this->match($app, $key)) {
             $usersInGroup = \OC_Group::usersInGroup("admin");
             foreach($usersInGroup as $affecteduser) {
-                Data::send($app, $subject, array($user, $key, $value), "", "", "", "", $affecteduser, $type);
+                $event = new Event();
+                $event->setApp($app)
+                    ->setType($type)
+                    ->setAffectedUser($user)
+                    ->setAuthor($this->currentUID)
+                    ->setTimestamp(time())
+                    ->setSubject($subject, array($user, $key, $value));
+                $this->data->send($event);
             }
         }
 

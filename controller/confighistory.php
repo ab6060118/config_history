@@ -19,7 +19,7 @@ use OCA\Activity\Data;
 use OCA\Activity\GroupHelper;
 use OCA\Activity\UserSettings;
 
-class ConfigurationHistory extends Controller {
+class ConfigHistory extends Controller {
 
     const DEFAULT_PAGE_SIZE = 5;
 
@@ -28,12 +28,11 @@ class ConfigurationHistory extends Controller {
     private $setting;
     private $user;
 
-	public function __construct($AppName, IRequest $request, Data $data, GroupHelper $helper, UserSettings $setting, $user){
+	public function __construct($AppName, IRequest $request, Data $data, GroupHelper $helper, UserSettings $setting){
 		parent::__construct($AppName, $request);
         $this->data = $data;
         $this->helper = $helper;
         $this->setting = $setting;
-        $this->user = $user;
 	}
 
     public function fetch($page, $filter = 'all') {
