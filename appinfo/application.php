@@ -11,118 +11,121 @@ use OCA\Activity\DataHelper;
 use OCA\Activity\ParameterHelper;
 
 use OCA\Config_History\Activity;
-use OCA\Config_History\ConfigAppConfig;
+use OCA\Config_History\ConfigHistoryAppConfig;
 use OCA\Config_History\FilesExternalMessageHandler;
 use OCA\Config_History\DefaultMessageHandler;
-use OCA\Config_History\AdminActivityManager;
-use OCA\Config_History\Controller\ConfigurationHistory;
+use OCA\Config_History\ConfigHistoryActivityManager;
+use OCA\Config_History\Controller\ConfigHistory;
 
 class Application extends App {
 
     public function __construct(array $urlParams=array()){
-        parent::__construct('config_history', $urlParams);
+        parent::__construct("config_history", $urlParams);
 
         $container = $this->getContainer();
 
-        $container->getServer()->registerService('AppConfig', function($c) {
-            return new \OCA\Config_History\ConfigAppConfig(\OC_DB::getConnection());
+        $container->getServer()->registerService("AppConfig", function($c) use ($container){
+            return new ConfigHistoryAppConfig(
+                \OC_DB::getConnection(),
+                $container->query("ActivityData"),
+                $container->query("CurrentUID")
+            );
         });
 
-        $container->registerService('AdminActivityManager', function($c) {
+        $container->registerService("ActivityData", function($c) {
             $serverContainer = $c->getServer();
-            return new AdminActivityManager(
+            return new Data(
+                $c->query("ConfigHistoryActivityManager"),
+                $serverContainer->getDatabaseConnection(),
+                $serverContainer->getUserSession()
+            );
+        });
+
+        $container->registerService("ConfigHistoryActivityManager", function($c) {
+            $serverContainer = $c->getServer();
+            return new ConfigHistoryActivityManager(
                 $serverContainer->getRequest(),
                 $serverContainer->getUserSession(),
                 $serverContainer->getConfig()
             );
         });
 
-        $container->registerService('AdminActivity', function($c) {
-            $serverContainer = $c->getServer();
+        $container->registerService("CurrentUID", function($c) {
+            $user = $c->getServer()->getUserSession()->getUser();
+
+            return ($user) ? $user->getUID() : "";
+        });
+
+        $container->registerService("ConfigHistoryActivity", function($c) {
             return new Activity(
-                $serverContainer->query('L10NFactory'),
-                $serverContainer->getURLGenerator(),
-                $c->query('Config')
+                $c->query("L10N"),
+                $c->getServer()->getConfig()
             );
         });
 
-		$container->registerService('L10N', function($c) {
-			return $c->getServer()->getL10N('config_history');
-		});
-
-        $container->registerService('ActivityData', function($c) {
-            return new Data($c->query('AdminActivityManager'));
+        $container->registerService("L10N", function($c) {
+            return $c->getServer()->getL10N("config_history");
         });
 
-        $container->registerService('Config', function($c) {
-            return $c->getServer()->getConfig();
-        });
-
-		$container->registerService('DataHelper', function($c) {
+        $container->registerService("DataHelper", function($c) {
             $serverContainer = $c->getServer();
-			/** @var \OC\Server $server */
-			return new DataHelper(
-                $c->query('AdminActivityManager'),
-				new ParameterHelper (
-                    $c->query('AdminActivityManager'),
-					$serverContainer->getUserManager(),
-					new View(''),
-					$serverContainer->getConfig(),
-					$c->query('L10N'),
-					$c->query('CurrentUID')
-				),
-				$c->query('L10N')
-			);
-		});
-
-		$container->registerService('GroupHelper', function($c) {
-			return new GroupHelper(
-                $c->query('AdminActivityManager'),
-				$c->query('DataHelper'),
-				true
-			);
-		});
-
-        $container->registerService('UserSettings', function($c) {
-            $serverContainer = $c->getServer();
-			return new UserSettings(
-				$c->query('AdminActivityManager'),
-				$serverContainer->getConfig(),
-				$c->query('ActivityData')
-			);
-        });
-
-		$container->registerService('CurrentUID', function($c) {
-			$user = $c->getServer()->getUserSession()->getUser();
-            
-			return ($user) ? $user->getUID() : '';
-		});
-
-
-        $container->registerService('ConfigurationHistoryController', function($c) {
-            return new ConfigurationHistory(
-				$c->query('AppName'),
-				$c->query('Request'),
-				$c->query('ActivityData'),
-				$c->query('GroupHelper'),
-				$c->query('UserSettings'),
-				$c->query('CurrentUID')
+            return new DataHelper(
+                $c->query("ConfigHistoryActivityManager"),
+                new ParameterHelper (
+                    $c->query("ConfigHistoryActivityManager"),
+                    $serverContainer->getUserManager(),
+                    $serverContainer->getURLGenerator(),
+                    $serverContainer->getContactsManager(),
+                    new View(""),
+                    $serverContainer->getConfig(),
+                    $c->query("L10N"),
+                    $c->query("CurrentUID")
+                ),
+                $c->query("L10N")
             );
         });
 
-        $container->query('AdminActivityManager')->registerExtension(function() use ($container) {
-            return $container->query('AdminActivity');
+        $container->registerService("GroupHelper", function($c) {
+            return new GroupHelper(
+                $c->query("ConfigHistoryActivityManager"),
+                $c->query("DataHelper"),
+                true
+            );
         });
 
-        $container->query('AdminActivity')->registerMessageHandler(
+        $container->registerService("UserSettings", function($c) {
+            $serverContainer = $c->getServer();
+            return new UserSettings(
+                $c->query("ConfigHistoryActivityManager"),
+                $serverContainer->getConfig(),
+                $c->query("ActivityData")
+            );
+        });
+
+
+        $container->registerService("ConfigHistoryController", function($c) {
+            return new ConfigHistory(
+                $c->query("AppName"),
+                $c->query("Request"),
+                $c->query("ActivityData"),
+                $c->query("GroupHelper"),
+                $c->query("UserSettings")
+            );
+        });
+
+        $container->query("ConfigHistoryActivityManager")->registerExtension(function() use ($container) {
+            return $container->query("ConfigHistoryActivity");
+        });
+
+        $container->query("ConfigHistoryActivity")->registerMessageHandler(
             new FilesExternalMessageHandler(
-                $container->query('L10N')
+                $container->query("L10N")
             )
         );
 
-        $container->query('AdminActivity')->registerMessageHandler(
+        $container->query("ConfigHistoryActivity")->registerMessageHandler(
             new DefaultMessageHandler(
-                $container->query('L10N')
+                $container->query("L10N")
             )
         );
     }

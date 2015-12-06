@@ -13,7 +13,7 @@ $(document).ready(function() {
     };
 
     OCConfigurationHistory.Filter = {
-        filter: 'configuration_history',
+        filter: 'config_history',
         currentPage: 0,
         pageSize: 5,
     };
